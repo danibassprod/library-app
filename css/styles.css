@@ -1,9 +1,8 @@
 :root {
-    --slate-blue: #7067cfff;
-    --jet: #2e2f2fff;
     --sidebar-font-color: #f6f6f6;
     --sidebar-bg-color: #051014ff;
     --content-bg-color: #ffffff;
+    --user-valid-color: rgb(5, 126, 1);
     --font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -23,18 +22,16 @@ button {
     border-radius: 10px;
 }
 
-input[type="checkbox"] {
-    transform: scale(1.2);
-}
-
 img {
     margin: 0;
     padding: 0;
 }
 
-button:hover { filter: brightness(90%); }
+button:hover { filter: brightness(95%); }
 
-button:active { filter: brightness(80%); }
+button:active { filter: brightness(90%); }
+
+button { cursor: pointer; }
 
 .container {
     height: 100vh;
@@ -99,3 +96,136 @@ button:active { filter: brightness(80%); }
     }
 }
 
+/* Modal styling */
+
+dialog {
+    position: relative;
+    width: 35vw;
+    height: 28vw;
+    border: none;
+    border-radius: 10px;
+    padding: max(5px, 1.1vw);
+    box-shadow:  1px 1px 9px 2px rgb(0 0 0 / 25%);
+}
+
+dialog:focus-visible { outline: 0;}
+
+dialog::backdrop {
+    background-color: black;
+    opacity: .4;
+}
+
+form { height: 100%; }
+
+fieldset {
+    border: 0;
+    padding: 0;
+}
+
+legend {
+    width: 100%;
+    margin-bottom: 1.8vw;
+    font-size: max(5px, 1.2vw);
+    font-style: italic;
+    font-weight: 500;
+}
+
+
+.form-control {
+    width: clamp(30px, 27vw, 1000px);
+    > label {
+        color: #303030;
+        text-align: left;
+        font-weight: bold;
+        font-size:  clamp(5px, 0.9vw, 50px);
+        font-style: italic;
+    }
+}
+
+input[type=text],
+input[type=number] {
+    height: 1.7vw;
+    background-color: #fafafa;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-weight: 300;
+    font-size: clamp(5px, 1.1vw, 50px);
+}
+
+input[type=text]:hover,
+input[type=number]:hover {
+    filter: brightness(98%);
+}
+
+input[type=text]:focus-visible,
+input[type=number]:focus-visible {
+    box-shadow: 0px 0px 2px 0px #000000a3;
+    outline: none;
+}
+
+
+input[type=text]:user-invalid,
+input[type=number]:user-invalid {
+    box-shadow: 0px 0px 2px 0px #fd1515e6;
+    border: 1px solid #fd1515e6;
+}
+
+input[type=text]:user-valid,
+input[type=number]:user-valid {
+    box-shadow: 0px 0px 2px var(--user-valid-color);
+    border: 1px solid var(--user-valid-color);
+}
+
+input[type="radio"] {
+    position: relative;
+    top: 2px;
+    width: max(5px, 1.2vw);
+    height: max(5px, 1.2vw);
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5vw;
+    margin-top: 2vw;
+    > button {
+        margin: 0;
+    }
+}
+
+.cancel {
+    position: absolute;
+    left: max(5px, 1.1vw);
+    top: max(5px, 1.1vw);
+    width: auto;
+    height: auto;
+    border: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+.cancel:focus-visible { outline: 0; }
+
+.form-control,
+.control-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.control-container {
+    gap: 2.2vw;
+    align-items: center;
+}
+
+.read-buttons {
+    width: 100%;
+    display: flex;
+    gap: 2vw;
+    justify-content: center;
+    > label {
+        cursor: pointer;
+        font-size: 1.2vw;
+        font-weight: 300;
+    }
+}

@@ -71,3 +71,17 @@ function displayLibrary() {
         contentArea.appendChild(bookContainer);
     })
 }
+
+const dialog = document.querySelector('dialog');
+dialog.showModal();
+
+const addBookBtn = document.querySelector('.add-book-btn');
+addBookBtn.addEventListener('click', () => dialog.showModal());
+
+const cancelBtn = document.querySelector('.cancel');
+cancelBtn.addEventListener('click', () => dialog.close());
+
+const title = document.querySelector('#book-title')
+const author = document.querySelector('#book-author')
+const pages = document.querySelector('#book-pages')
+const read = document.querySelector('#book-read')

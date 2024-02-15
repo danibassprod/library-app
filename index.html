@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap');
-      </style>
+    </style>
     <script defer src="js-file.js"></script>
 </head>
 <body>
@@ -17,7 +17,44 @@
             <h2>Library App</h2>
             <p>A simple book reading list for personal use!</p>
             <p><em>Remember: Reading is important, but what you read is what really matters.</em></p>
-            <button type="button">Add book</button>
+            <dialog>
+                <form action="#" method="dialog">
+                    <button type="button" class="cancel">X</button>
+                    <fieldset>
+                        <legend>Add book to library</legend>
+
+                        <div class="control-container">
+                            <div class="form-control">
+                                <label for="book-title">TITLE</label>
+                                <input type="text" name="title" id="book-title" minlength="2" required>
+                            </div>
+                            <div class="form-control">
+                                <label for="book-author">AUTHOR</label>
+                                <input type="text" name="author" id="book-author" minlength="5" required>
+                            </div>
+                            <div class="form-control">
+                                <label for="book-pages">PAGES</label>
+                                <input type="number" name="pages" id="book-pages" min="1" required>
+                            </div>
+                                <div class="read-buttons">
+                                    <label for="book-read">
+                                        <input type="radio" name="read" id="book-read" value="Not read yet" required>
+                                        Read
+                                    </label>
+                                    <label for="book-not-read">
+                                        <input type="radio" name="read" id="book-not-read" value="Read" required>
+                                        Not read yet
+                                    </label>
+                                </div>
+                        </div>
+                    </fieldset>
+                    <div class="buttons">
+                        <button class="reset" type="reset">Reset</button>
+                        <button class="submit" type="submit">Submit</button>
+                    </div>
+                </form>
+            </dialog>
+            <button class="add-book-btn" type="button">Add book</button>
         </div>
 
         <div class="content">
@@ -29,17 +66,8 @@
                 <img class="logo" src="img/year.svg" alt="year-icon">
                 <p class="year text">2001</p>
                 <img class="logo" src="img/read.svg" alt="read-icon">
-                <div class="input text">
-                    <label for="read">Read</label>
-                    <input type="checkbox" id="read" value="read" checked>
-                </div>
+                <p class="read text">Read</p>
             </div>
-            <div class="book"></div>
-            <div class="book"></div>
-            <div class="book"></div>
-            <div class="book"></div>
-            <div class="book"></div>
-            <div class="book"></div>
         </div>
     </div>
 </body>
