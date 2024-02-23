@@ -14,9 +14,9 @@ function AddBookToLibrary(title, author, pages, read) {
     myLibrary.push(new Book(title, author, pages, read));
 }
 
-AddBookToLibrary('Stuff to do', 'The People', 213, 'Not yet read');
-AddBookToLibrary('What happens next?', 'Tommy Zimmerman', 223, 'Read');
-AddBookToLibrary('El Psicoanalista', 'John Doe', 1231, 'Read');
+AddBookToLibrary('Teoria Musical de Victor de Rubertis', 'Victor de Rubertis', 452, 'Not yet read');
+AddBookToLibrary('Tesoros de la Biblia', 'Various Authors', 879, 'Not yet read');
+AddBookToLibrary('El Psicoanalista', 'John Katzerbatch', 446, 'Read');
 
 function displayLibrary() {
     myLibrary.forEach(function(book) {
@@ -97,9 +97,17 @@ function buildBook(book) {
     removeBookBtn.classList.add('remove-book');
     removeBookBtn.setAttribute('type', 'button');
     removeBookBtn.textContent = 'Remove';
+
+    // Removes the book from display and myLibrary.
     
     removeBookBtn.addEventListener('click', function(){
-        console.log('yes')
+        const books = document.querySelectorAll('.book')
+        books.forEach(function(book, index){
+            if (book.dataset.index === removeBookBtn.dataset.index) {
+                 myLibrary.splice(index, 1)
+                 book.remove()
+            } 
+        })
     })
     
     // Adds book index
