@@ -14,66 +14,111 @@ function AddBookToLibrary(title, author, pages, read) {
     myLibrary.push(new Book(title, author, pages, read));
 }
 
-AddBookToLibrary('Biblie', 'God', 787, 'Not yet read')
-AddBookToLibrary('Escape', 'John Doe', 321, 'Read')
+AddBookToLibrary('Stuff to do', 'The People', 213, 'Not yet read');
+AddBookToLibrary('What happens next?', 'Tommy Zimmerman', 223, 'Read');
+AddBookToLibrary('El Psicoanalista', 'John Doe', 1231, 'Read');
 
 function displayLibrary() {
     myLibrary.forEach(function(book) {
-
-        const contentArea = document.querySelector('.content');
-        const bookContainer = document.createElement('div');
-        bookContainer.classList.add('book');
+        if (book.show) {
+            return
+        } else {
+            buildBook(book)
+        }
+    }
+    )};
     
-        const titleIcon = document.createElement('img')
-        titleIcon.classList.add('logo');
-        titleIcon.src = 'img/title.svg';
-        titleIcon.alt = 'title icon';
-        bookContainer.appendChild(titleIcon);
+const contentArea = document.querySelector('.content');
+    
+displayLibrary();
 
-        const title = document.createElement('h3');
-        title.textContent = book.title;
-        title.classList.add('title', 'text');
-        bookContainer.appendChild(title);
+function buildBook(book) {
+    book.show = true;
 
-        const authorIcon = document.createElement('img');
-        authorIcon.classList.add('logo');
-        authorIcon.src = 'img/author.svg';
-        authorIcon.alt = 'author icon';
-        bookContainer.appendChild(authorIcon);
-        
-        const author = document.createElement('p');
-        author.textContent = book.author;
-        author.classList.add('author', 'text');
-        bookContainer.appendChild(author);
+    const bookContainer = document.createElement('div');
+    bookContainer.classList.add('book');
 
-        const pagesIcon = document.createElement('img');
-        pagesIcon.classList.add('logo');
-        pagesIcon.src = 'img/year.svg';
-        pagesIcon.alt = 'pages icon';
-        bookContainer.appendChild(pagesIcon);
-        
-        const pages = document.createElement('p');
-        pages.textContent = book.pages;
-        pages.classList.add('pages', 'text');
-        bookContainer.appendChild(pages);
-        
-        const readIcon = document.createElement('img');
-        readIcon.classList.add('logo');
-        readIcon.src = 'img/read.svg';
-        readIcon.alt = 'read icon';
-        bookContainer.appendChild(readIcon);
+    bookContainer.setAttribute('data-index', myLibrary.findIndex(x => x.title === book.title));
 
-        const readState = document.createElement('p');
-        readState.textContent = book.read;
-        readState.classList.add('read', 'text');
-        bookContainer.appendChild(readState);
+    const titleIcon = document.createElement('img');
+    titleIcon.classList.add('logo');
+    titleIcon.src = 'img/title.svg';
+    titleIcon.alt = 'title icon';
+    bookContainer.appendChild(titleIcon);
 
-        contentArea.appendChild(bookContainer);
+    const title = document.createElement('h3');
+    title.textContent = book.title;
+    title.classList.add('title', 'text');
+    bookContainer.appendChild(title);
+
+    const authorIcon = document.createElement('img');
+    authorIcon.classList.add('logo');
+    authorIcon.src = 'img/author.svg';
+    authorIcon.alt = 'author icon';
+    bookContainer.appendChild(authorIcon);
+    
+    const author = document.createElement('p');
+    author.textContent = book.author;
+    author.classList.add('author', 'text');
+    bookContainer.appendChild(author);
+
+    const pagesIcon = document.createElement('img');
+    pagesIcon.classList.add('logo');
+    pagesIcon.src = 'img/year.svg';
+    pagesIcon.alt = 'pages icon';
+    bookContainer.appendChild(pagesIcon);
+    
+    const pages = document.createElement('p');
+    pages.textContent = book.pages;
+    pages.classList.add('pages', 'text');
+    bookContainer.appendChild(pages);
+    
+    const readIcon = document.createElement('img');
+    readIcon.classList.add('logo');
+    readIcon.src = 'img/read.svg';
+    readIcon.alt = 'read icon';
+    bookContainer.appendChild(readIcon);
+    
+    const readState = document.createElement('p');
+    readState.textContent = book.read;
+    readState.classList.add('read', 'text');
+    bookContainer.appendChild(readState);
+    
+    const removeAndReadBtns = document.createElement('div');
+    removeAndReadBtns.classList.add('remove-read-buttons');
+
+    const readStateBtn = document.createElement('button');
+    readStateBtn.classList.add('read-state');
+    readStateBtn.setAttribute('type', 'button');
+    readStateBtn.textContent = book.read;
+    removeAndReadBtns.appendChild(readStateBtn);
+
+    const removeBookBtn = document.createElement('button');
+    removeBookBtn.classList.add('remove-book');
+    removeBookBtn.setAttribute('type', 'button');
+    removeBookBtn.textContent = 'Remove';
+    
+    removeBookBtn.addEventListener('click', function(){
+        console.log('yes')
     })
+    
+    // Adds book index
+    removeBookBtn.setAttribute('data-index', myLibrary.findIndex(arrayBook => arrayBook.title === book.title));
+    removeAndReadBtns.appendChild(removeBookBtn);
+    
+    bookContainer.appendChild(removeAndReadBtns);
+
+    contentArea.appendChild(bookContainer);
 }
 
+const title = document.querySelector('#book-title');
+const author = document.querySelector('#book-author');
+const pages = document.querySelector('#book-pages');
+const read = document.querySelector('#book-read');
+const bookReadBtn = document.querySelector('#book-read');
+const bookNotReadBtn = document.querySelector('#book-not-read');
+
 const dialog = document.querySelector('dialog');
-dialog.showModal();
 
 const addBookBtn = document.querySelector('.add-book-btn');
 addBookBtn.addEventListener('click', () => dialog.showModal());
@@ -81,7 +126,14 @@ addBookBtn.addEventListener('click', () => dialog.showModal());
 const cancelBtn = document.querySelector('.cancel');
 cancelBtn.addEventListener('click', () => dialog.close());
 
-const title = document.querySelector('#book-title')
-const author = document.querySelector('#book-author')
-const pages = document.querySelector('#book-pages')
-const read = document.querySelector('#book-read')
+const submitBtn = document.querySelector('.submit');
+submitBtn.addEventListener('click', function(){
+    if (title.value === '' || author.value === '' || 
+        pages.value === '' || bookReadBtn.checked == false && 
+        bookNotReadBtn.checked === false) {
+            return
+        } else {
+            AddBookToLibrary(title.value, author.value, pages.value, read.value);
+            displayLibrary();
+        }
+});
