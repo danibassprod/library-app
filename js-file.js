@@ -105,7 +105,7 @@ function buildBook(book) {
             if (book.dataset.index === removeBookBtn.dataset.index && myLibrary.length === 1) {
                 myLibrary[0].readStatus()
                 readState.textContent = myLibrary[0].read;
-            } else {
+            } else if (book.dataset.index === removeBookBtn.dataset.index){
                 myLibrary[book.dataset.index].readStatus()
                 readState.textContent = myLibrary[book.dataset.index].read;
             }
