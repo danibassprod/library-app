@@ -102,7 +102,10 @@ function buildBook(book) {
     readStateBtn.addEventListener('click', function(){
         const books = document.querySelectorAll('.book')
         books.forEach(function(book){
-            if (book.dataset.index === removeBookBtn.dataset.index) {
+            if (book.dataset.index === removeBookBtn.dataset.index && myLibrary.length === 1) {
+                myLibrary[0].readStatus()
+                readState.textContent = myLibrary[0].read;
+            } else {
                 myLibrary[book.dataset.index].readStatus()
                 readState.textContent = myLibrary[book.dataset.index].read;
             }
