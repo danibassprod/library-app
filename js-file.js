@@ -5,6 +5,13 @@ function Book(title, author, pages, read) {
     this.author = author,
     this.pages = pages,
     this.read = read,
+    this.readStatus = function(){
+        if (this.read === 'Read'){
+            this.read = 'Not read yet'
+        } else {
+            this.read = 'Read'
+        }
+    }
     this.info = function () {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`;
     }
@@ -14,8 +21,8 @@ function AddBookToLibrary(title, author, pages, read) {
     myLibrary.push(new Book(title, author, pages, read));
 }
 
-AddBookToLibrary('Teoria Musical de Victor de Rubertis', 'Victor de Rubertis', 452, 'Not yet read');
-AddBookToLibrary('Tesoros de la Biblia', 'Various Authors', 879, 'Not yet read');
+AddBookToLibrary('Teoria Musical', 'Victor de Rubertis', 452, 'Not read yet');
+AddBookToLibrary('Tesoros de la Biblia', 'Various Authors', 879, 'Not read yet');
 AddBookToLibrary('El Psicoanalista', 'John Katzerbatch', 446, 'Read');
 
 function displayLibrary() {
@@ -26,7 +33,7 @@ function displayLibrary() {
             buildBook(book)
         }
     }
-    )};
+)};
     
 const contentArea = document.querySelector('.content');
     
@@ -90,7 +97,18 @@ function buildBook(book) {
     const readStateBtn = document.createElement('button');
     readStateBtn.classList.add('read-state');
     readStateBtn.setAttribute('type', 'button');
-    readStateBtn.textContent = book.read;
+    readStateBtn.textContent = 'Read';
+
+    readStateBtn.addEventListener('click', function(){
+        const books = document.querySelectorAll('.book')
+        books.forEach(function(book){
+            if (book.dataset.index === removeBookBtn.dataset.index) {
+                myLibrary[book.dataset.index].readStatus()
+                readState.textContent = myLibrary[book.dataset.index].read;
+            }
+        })
+    });
+
     removeAndReadBtns.appendChild(readStateBtn);
 
     const removeBookBtn = document.createElement('button');
@@ -109,7 +127,7 @@ function buildBook(book) {
             } 
         })
     })
-    
+
     // Adds book index
     removeBookBtn.setAttribute('data-index', myLibrary.findIndex(arrayBook => arrayBook.title === book.title));
     removeAndReadBtns.appendChild(removeBookBtn);
